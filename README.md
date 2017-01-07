@@ -1,0 +1,1 @@
+# ember-emberfire-find-query
