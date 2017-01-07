@@ -1,6 +1,6 @@
 {
   "name": "ember-emberfire-find-query",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "The default blueprint for ember-cli addons.",
   "directories": {
     "doc": "doc",
@@ -11,7 +11,7 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+  "repository": "https://github.com/TomHeatwole/ember-emberfire-find-query/",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -41,12 +41,18 @@
     "loader.js": "^4.0.1"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "emberfire",
+    "ember-cli",
+    "firebase",
+    "query",
+    "filter"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.6"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  }
+  },
+  "author": "Tom Heatwole"
 }
