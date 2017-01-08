@@ -5,8 +5,7 @@ module.exports = {
   name: 'ember-emberfire-find-query'
 
   included: function(app) {
-    this._super.included(app) {
-      app.import('addon/mixins/find-query.js');
-    }
+    this._super.included(app);
+    app.import('addon/mixins/find-query.js');
   }
 };
