@@ -18,7 +18,7 @@ export default Ember.Mixin.create({
   //     the requirements given in 'attributes' and 'values'
   // ** Position in 'attributs' corresponds with position in 'values'
 
-  filterEqual: function (model, attributes, values, cb) {
+  filterEqual: function (store, model, attributes, values, cb) {
     var found = [];
     store.findAll(model).then(function(objects) {
       var count = 1;
