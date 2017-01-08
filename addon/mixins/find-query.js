@@ -10,7 +10,7 @@ import Ember from 'ember';
 
 export default Ember.Mixin.create({
 
-  store: Ember.inject.service('store'),
+  store: Ember.inject.service(),
   
   // param: model - string - name of the model to be searched
   // param: attributes - array - names of the attributes that should be filtered by
