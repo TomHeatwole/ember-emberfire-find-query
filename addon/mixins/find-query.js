@@ -9,6 +9,8 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
+
+  store: Ember.inject.service('store');
   
   // param: model - string - name of the model to be searched
   // param: attributes - array - names of the attributes that should be filtered by
@@ -20,7 +22,7 @@ export default Ember.Mixin.create({
 
   filterEqual: function (model, attributes, values, cb) {
     var found = [];
-    this.store.findAll(model).then(function(objects) {
+    this.get('store').findAll(model).then(function(objects) {
       var count = 1;
       objects.forEach(function(o) {
         var countHere = count;

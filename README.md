@@ -23,7 +23,7 @@ The first section of this README outlines the details of collaborating on this E
 
 * `ember build`
 
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+##For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
 =======
 
 # ember-emberfire-find-query
