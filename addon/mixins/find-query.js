@@ -12,14 +12,12 @@ export default Ember.Mixin.create({
   
   // param: store - this.store()
   // param: model - string - name of the model to be searched
-  // param: attributes - array - names of the attributes that should be filtered by
-  // param: values - array - required values of the filtered attributes
+  // param: params - map - attributes of model with their required values
   // param: cb - function - callback function to be executed after find
   //   - callback param: found - array - conaints only instances of the model which pass
-  //     the requirements given in 'attributes' and 'values'
-  // ** Position in 'attributs' corresponds with position in 'values'
+  //     the requirements given in 'params'
 
-  filterEqual: function(store, model, attributes, values, cb) {
+  filterEqual: function(store, model, params, cb) {
     var found = [];
     store.findAll(model).then(function(objects) {
       var count = 0;
@@ -31,8 +29,8 @@ export default Ember.Mixin.create({
         count++;
         var countHere = count;
         var include = true;
-        for (var i = 0; i < attributes.length; i++) {
-          if (o.get(attributes[i]) !== values[i]) {
+        for (var key in params) {
+          if (o.get(key) !== params[key]) {
             include = false;
           }
         }
