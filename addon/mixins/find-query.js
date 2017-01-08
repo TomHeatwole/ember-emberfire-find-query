@@ -10,6 +10,7 @@ import Ember from 'ember';
 
 export default Ember.Mixin.create({
   
+  // param: store - this.store()
   // param: model - string - name of the model to be searched
   // param: attributes - array - names of the attributes that should be filtered by
   // param: values - array - required values of the filtered attributes
@@ -18,11 +19,12 @@ export default Ember.Mixin.create({
   //     the requirements given in 'attributes' and 'values'
   // ** Position in 'attributs' corresponds with position in 'values'
 
-  filterEqual: function (store, model, attributes, values, cb) {
+  filterEqual: function(store, model, attributes, values, cb) {
     var found = [];
     store.findAll(model).then(function(objects) {
-      var count = 1;
+      var count = 0;
       objects.forEach(function(o) {
+        count++;
         var countHere = count;
         include = true;
         for (var i = 0; i < attributes.length; i++) {
