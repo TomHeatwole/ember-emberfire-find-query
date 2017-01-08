@@ -17,19 +17,78 @@ look something like this:
 
 ## Using the addon
 
-After the addon is installed and the mixin is included in your controller or component, you will have access to the following functions:
+After the addon is installed and the mixin is included in your controller or component, you will have access to the following functions
 
-* `filterEqual(store, model, params, cb)`
-* `filterNotEqual(store, model, params, cb)`
-* `filterGreaterThan(store, model, params, cb)`
-* `filterLessThan(store, model, params, cb)`
-* `filterGreaterThanOrEqualTo(store, model, params, cb)`
-* `filterLessThanOrEqualTo(store, model, params, cb)`
-* `filterCustom(store, model, params, cb)`
+### Specific Filters
+
+The find-query mixin has six "specific" filter functions:
+
+* `filterEqual(store, model, params, callback)`
+* `filterNotEqual(store, model, params, callback)`
+* `filterGreaterThan(store, model, params, callback)`
+* `filterLessThan(store, model, params, callback)`
+* `filterGreaterThanOrEqualTo(store, model, params, callback)`
+* `filterLessThanOrEqualTo(store, model, params, callback)`
+
+#### Paramerets
+
+* `store`: This is the DS.store for your Ember app. Pass `this.store` in a controller or `this.get('targetObject.store')` in a component
+* `model`: The name of the model which you wish to find (string)
+* `params`: A map which maps the name of the attribute to the desired value
+* `callback`: The callback function is called after the search is complete
+  * The callback function takes in an array of the "found" instances of the model as a parameter
+
+#### Examples
+
+If you wanted to search your database for users with the first name Tom, it might look something like this:
+
+```
+this.filterEqual(this.store, 'user', {'firstName': 'Tom'}, function(toms) {
+  // Do something with toms
+});
+```
+
+If you wanted to search your database for blog posts with 500+ views and 30+ shares, it might look something like this:
+
+```
+this.filterGreaterThanOrEqualTo(this.store, 'post', {'views': 500, 'shares': 30}, function(posts) {
+  // Do something with posts
+}
+```
+
+### Custom Filter 
+
+Additionally, if you want to apply multiple filters to the same search, you would use the `filterCustom` function:
+
+* `filterCustom(store, model, params, callback)`
+
+#### Parameters
+
+* `store`: the DS.store for your Ember app. Pass `this.store` inside a controller or `this.get('targetObject.store')` in a component 
+* `model`: The name of the model which you wish to find (string)
+* `params`: A map which maps the name of the attribute to an ordered pair (array) containing the operator and the desired value
+  * Format: `{attribute1: [operator1, value1], attribute2: [operator2, value2] ... }`
+  * Operators: `'=='`, `'!='`, `'>'`, `'<'`, `'>='`, and `'<='`
+* `callback`: The callback function is called after the search is complete
+  * The callback function takes in an array of the "found" instances of the model as a parameter
+
+#### Example
+
+Say you run into a case where you want to search for blog posts with 500+ views, less than 50 dislikes, created by a user named user225. Your find query might look something like this:
+
+```
+this.filterCustom(this.store, 'post', {
+  'views': ['>=', 500],
+  'dislikes': ['<', 50],
+  'author': ['==', 'user225']
+}, function(posts) {
+  // Do something with posts
+});
+```
 
 =======
  
-# How to contribut to this addon:
+# How to contribute to this addon:
 
 ## Installation
 
@@ -53,5 +112,4 @@ After the addon is installed and the mixin is included in your controller or com
 * `ember build`
 
 ##For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
-=======
 
