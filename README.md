@@ -1,5 +1,7 @@
 # ember-emberfire-find-query
 
+This addon is for making database seraches with filters when using a Firebase database. `Emberfire`, the services linking Ember.JS to Google Firebase was deprecated before a good method for filtered searches was written. This addon is intended to be used in Ember.JS applications that are implemented with `Embefire`.
+
 ## Including the addon
 
 First, install the addon with the following command:
