@@ -23,6 +23,10 @@ export default Ember.Mixin.create({
     var found = [];
     store.findAll(model).then(function(objects) {
       var count = 0;
+      var size = 0;
+      objects.forEach(function(o) {
+        size++;
+      });
       objects.forEach(function(o) {
         count++;
         var countHere = count;
@@ -35,7 +39,7 @@ export default Ember.Mixin.create({
         if (include) {
           found.push(o);
         }
-        if (countHere === objects.length) {
+        if (countHere === size) {
           cb(found);
         }
       });
