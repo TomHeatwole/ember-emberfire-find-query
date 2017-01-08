@@ -28,7 +28,7 @@ export default Ember.Mixin.create({
         var countHere = count;
         var include = true;
         for (var i = 0; i < attributes.length; i++) {
-          if (o.get(attributes[i] !== values[i])) {
+          if (o.get(attributes[i]) !== values[i]) {
             include = false;
           }
         }
