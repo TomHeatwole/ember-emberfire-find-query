@@ -10,7 +10,7 @@ import Ember from 'ember';
 
 export default Ember.Mixin.create({
   
-  // param: store - DS.store()
+  // param: store - DS.store
   // param: model - string - name of the model to be searched
   // param: params - map - attributes of model with their required values
   // param: cb - function - callback function to be executed after find
@@ -78,7 +78,7 @@ export default Ember.Mixin.create({
     });
   },
 
-  // param: store - DS.store()
+  // param: store - DS.store
   // param: model - string - name of the model to be searched
   // param: params - map - attributes of model with their required values
   // param: cb - function - callback function to be executed after find
@@ -146,7 +146,7 @@ export default Ember.Mixin.create({
     });
   },
 
-  // param: store - DS.store()
+  // param: store - DS.store
   // param: model - string - name of the model to be searched
   // param: params - map - attributes of model with their required values
   // param: cb - function - callback function to be executed after find
@@ -213,4 +213,66 @@ export default Ember.Mixin.create({
       });
     });
   },
+
+  // param: store - DS.store
+  // param: model - stirng - name of the model to be searched
+  // param: params - map - maps attributes of model with to an ordered pair [operator, value]
+  //        - example: {'score': ['>', 5], 'name': ['!=', 'Tom']} would return instances of the
+  //          model where the 'score' variable is greater than 5 and the name variable is not
+  //          equal to Tom
+  //        - supports '==', '!=', '>'. '<'. '>=', and '<='
+  // param: cb - function - callback function to be executed after find
+  //   - callback param: foud - array - contains only instances of the modlew hcih pass
+  //     the requirements given in 'params'
+  
+  filterCustom: function(store, model, params, cb) {
+    var found = [];
+    store.findAll(model).then(function(objects) {
+      var count = 0;
+      var size = 0;
+      objects.forEach(function(o) {
+        size++;
+      });
+      objects.forEach(function(o) {
+        count++;
+        var countHere = count;
+        var include = true;
+        for (var key in params) {
+          if (params[key][0] === '==') {
+            if (o.get(key) !== params[key][1]) {
+              include = false;
+            }
+          } else if (params[key][0] === '!=') {
+            if (o.get(key) === params[key][1]) {
+              include = false;
+            }
+          } else if (params[key][0] === '>') {
+            if (o.get(key) <= params[key][1]) {
+              include = false;
+            }
+          } else if (params[key][0] === '<') {
+            if (o.get(key) >= params[key][1]) {
+              include = false;
+            }
+          } else if (params[key][0] === '>=') {
+            if (o.get(key) < params[key][1]) {
+              include = false;
+            }
+          } else if (params[key][0] === '<=') {
+            if (o.get(key) > params[key][1]) {
+              include = false;
+            }
+          } else {
+            throw "Invalid operator: " + params[key][0]; 
+          }
+        }
+        if (include) {
+          found.push(o);
+        }
+        if (countHere === size) {
+          cb(found);
+        }
+      });
+    });
+  }
 });
