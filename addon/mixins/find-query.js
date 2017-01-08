@@ -263,7 +263,7 @@ export default Ember.Mixin.create({
               include = false;
             }
           } else {
-            throw "Invalid operator: " + params[key][0]; 
+            throw new Error("Invalid operator for filterCustom: '" + params[key][0] + "'");
           }
         }
         if (include) {
