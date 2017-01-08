@@ -77,4 +77,72 @@ export default Ember.Mixin.create({
       });
     });
   },
+
+  // param: store - DS.store()
+  // param: model - string - name of the model to be searched
+  // param: params - map - attributes of model with their required values
+  // param: cb - function - callback function to be executed after find
+  //   - callback param: found - array - conaints only instances of the model which pass
+  //     the requirements given in 'params'
+
+  filterGreaterThan: function(store, model, params, cb) {
+    var found = [];
+    store.findAll(model).then(function(objects) {
+      var count = 0;
+      var size = 0;
+      objects.forEach(function(o) {
+        size++;
+      });
+      objects.forEach(function(o) {
+        count++;
+        var countHere = count;
+        var include = true;
+        for (var key in params) {
+          if (o.get(key) <= params[key]) {
+            include = false;
+          }
+        }
+        if (include) {
+          found.push(o);
+        }
+        if (countHere === size) {
+          cb(found);
+        }
+      });
+    });
+  },
+
+  // param: store - DS.store()
+  // param: model - string - name of the model to be searched
+  // param: params - map - attributes of model with their required values
+  // param: cb - function - callback function to be executed after find
+  //   - callback param: found - array - conaints only instances of the model which pass
+  //     the requirements given in 'params'
+
+  filterLessThan: function(store, model, params, cb) {
+    var found = [];
+    store.findAll(model).then(function(objects) {
+      var count = 0;
+      var size = 0;
+      objects.forEach(function(o) {
+        size++;
+      });
+      objects.forEach(function(o) {
+        count++;
+        var countHere = count;
+        var include = true;
+        for (var key in params) {
+          if (o.get(key) >= params[key]) {
+            include = false;
+          }
+        }
+        if (include) {
+          found.push(o);
+        }
+        if (countHere === size) {
+          cb(found);
+        }
+      });
+    });
+  },
 });
