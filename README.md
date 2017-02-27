@@ -19,7 +19,7 @@ look something like this:
 
 ## Using the addon
 
-After the addon is installed and the mixin is included in your controller or component, you will have access to the following functions
+After the addon is installed and the mixin is included in your controller or component, you will have access to the following functions.
 
 ### Specific Filters
 
@@ -55,7 +55,7 @@ If you wanted to search your database for blog posts with 500+ views and 30+ sha
 ```
 this.filterGreaterThanOrEqualTo(this.store, 'post', {'views': 500, 'shares': 30}, function(posts) {
   // Do something with posts
-}
+});
 ```
 
 ### Custom Filter 
