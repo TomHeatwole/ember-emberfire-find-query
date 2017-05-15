@@ -59,9 +59,9 @@ this.filterGreaterThanOrEqualTo(this.store, 'post', {'views': 500, 'shares': 30}
 });
 ```
 
-If you wanted to search your database for blog posts with the word "unicorn" anywhere in the blog post body (case insensitive), it might look something like this:
+If you wanted to search your database for articles with the word "unicorn" anywhere in article body (case insensitive), it might look something like this:
 ````
-this.filterContains(this.store, 'post', {'body': 'unicorn'}, function(posts) {
+this.filterContains(this.store, 'article', {'body': 'unicorn'}, function(posts) {
   // Do something with posts
 });
 ````

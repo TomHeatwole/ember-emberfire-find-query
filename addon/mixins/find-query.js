@@ -48,6 +48,12 @@ export default Ember.Mixin.create({
     });
   },
 
+  // param: store - DS.store
+  // param: model - string - name of the model to be searched
+  // param: params - map - attributes of model with their required values
+  // param: cb - function - callback function to be executed after find
+  //   - callback param: found - array - contains only instances of the model which pass
+  //     the requirements given in 'params'
 
   filterEqual: function(store, model, params, cb) {
     var found = [];
