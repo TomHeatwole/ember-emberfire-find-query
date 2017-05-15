@@ -9,13 +9,45 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  
+
   // param: store - DS.store
   // param: model - string - name of the model to be searched
   // param: params - map - attributes of model with their required values
   // param: cb - function - callback function to be executed after find
-  //   - callback param: found - array - conaints only instances of the model which pass
+  //   - callback param: found - array - contains only instances of the model which pass
   //     the requirements given in 'params'
+
+  filterContains: function(store, model, params, cb) {
+    var found = [];
+    store.findAll(model).then(function(objects) {
+      var count = 0;
+      var size = 0;
+      objects.forEach(function(o) {
+        size++;
+      });
+      objects.forEach(function(o) {
+        count++;[]
+        var countHere = count;
+        var include = true;
+        for (var key in params) {
+          var oKey = o.get(key);
+          var paramsKey = params[key];
+          if (oKey && paramsKey) {
+            if (oKey.toLowerCase().indexOf(paramsKey.toLowerCase()) === -1) {
+              include = false;
+            }
+          }
+        }
+        if (include) {
+          found.push(o);
+        }
+        if (countHere === size) {
+          cb(found);
+        }
+      });
+    });
+  },
+
 
   filterEqual: function(store, model, params, cb) {
     var found = [];
@@ -43,7 +75,7 @@ export default Ember.Mixin.create({
       });
     });
   },
- 
+
   // param: store - DS.store()
   // param: model - string - name of the model to be searched
   // param: params - map - attributes of model with their required values
@@ -224,7 +256,7 @@ export default Ember.Mixin.create({
   // param: cb - function - callback function to be executed after find
   //   - callback param: foud - array - contains only instances of the modlew hcih pass
   //     the requirements given in 'params'
-  
+
   filterCustom: function(store, model, params, cb) {
     var found = [];
     store.findAll(model).then(function(objects) {

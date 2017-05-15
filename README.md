@@ -8,7 +8,7 @@ First, install the addon with the following command:
 
 * `ember install https://github.com/TomHeatwole/ember-emberfire-find-query`
 
-Next, go to any controller or component controller where you wish to perform a find query. Add this line in your imports.
+Next, go to any controller, component controller or model where you wish to perform a find query. Add this line in your imports.
 
 * `import FindQuery from 'ember-emberfire-find-query/mixins/find-query';`
 
@@ -31,6 +31,7 @@ The find-query mixin has six "specific" filter functions:
 * `filterLessThan(store, model, params, callback)`
 * `filterGreaterThanOrEqualTo(store, model, params, callback)`
 * `filterLessThanOrEqualTo(store, model, params, callback)`
+* `filterContains(store, model, params, callback)`
 
 #### Paramerets
 
@@ -58,6 +59,12 @@ this.filterGreaterThanOrEqualTo(this.store, 'post', {'views': 500, 'shares': 30}
 });
 ```
 
+If you wanted to search your database for blog posts with the word "unicorn" anywhere in the blog post body (case insensitive), it might look something like this:
+````
+this.filterContains(this.store, 'post', {'body': 'unicorn'}, function(posts) {
+  // Do something with posts
+});
+````
 ### Custom Filter 
 
 Additionally, if you want to apply multiple filters to the same search, you would use the `filterCustom` function:
