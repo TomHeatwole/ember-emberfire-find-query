@@ -258,7 +258,7 @@ export default Ember.Mixin.create({
   //        - example: {'score': ['>', 5], 'name': ['!=', 'Tom']} would return instances of the
   //          model where the 'score' variable is greater than 5 and the name variable is not
   //          equal to Tom
-  //        - supports '==', '!=', '>'. '<'. '>=', and '<='
+  //        - supports '==', '!=', '>'. '<'. '>=', '<=', 'contains'
   // param: cb - function - callback function to be executed after find
   //   - callback param: foud - array - contains only instances of the modlew hcih pass
   //     the requirements given in 'params'
@@ -299,6 +299,14 @@ export default Ember.Mixin.create({
           } else if (params[key][0] === '<=') {
             if (o.get(key) > params[key][1]) {
               include = false;
+            }
+          } else if (params[key][0] === 'contains') {
+            var oKey = o.get(key);
+            var paramsKey = params[key][1];
+            if (oKey && paramsKey) {
+              if (oKey.toLowerCase().indexOf(paramsKey.toLowerCase()) === -1) {
+                include = false;
+              }
             }
           } else {
             throw new Error("Invalid operator for filterCustom: '" + params[key][0] + "'");

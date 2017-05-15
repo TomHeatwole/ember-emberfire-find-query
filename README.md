@@ -77,19 +77,19 @@ Additionally, if you want to apply multiple filters to the same search, you woul
 * `model`: The name of the model which you wish to find (string)
 * `params`: A map which maps the name of the attribute to an ordered pair (array) containing the operator and the desired value
   * Format: `{attribute1: [operator1, value1], attribute2: [operator2, value2] ... }`
-  * Operators: `'=='`, `'!='`, `'>'`, `'<'`, `'>='`, and `'<='`
+  * Operators: `'=='`, `'!='`, `'>'`, `'<'`, `'>='`, `'<='`, and `'contains'`
 * `callback`: The callback function is called after the search is complete
   * The callback function takes in an array of the "found" instances of the model as a parameter
 
 #### Example
 
-Say you run into a case where you want to search for blog posts with 500+ views, less than 50 dislikes, created by a user named user225. Your find query might look something like this:
+Say you run into a case where you want to search for blog posts containing the word "Trump" (case insensitive) with 500+ viewsi, created by a user named user225,  Your find query might look something like this:
 
 ```
 this.filterCustom(this.store, 'post', {
   'views': ['>=', 500],
-  'dislikes': ['<', 50],
-  'author': ['==', 'user225']
+  'author': ['==', 'user225'],
+  'body': ['contains', 'trump']
 }, function(posts) {
   // Do something with posts
 });
