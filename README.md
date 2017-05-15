@@ -83,7 +83,7 @@ Additionally, if you want to apply multiple filters to the same search, you woul
 
 #### Example
 
-Say you run into a case where you want to search for blog posts containing the word "Trump" (case insensitive) with 500+ views, created by a user named user225,  Your find query might look something like this:
+Say you run into a case where you want to search for blog posts containing the word "Trump" (case insensitive) with 500+ views, created by a user named user225.  Your find query might look something like this:
 
 ```
 this.filterCustom(this.store, 'post', {
