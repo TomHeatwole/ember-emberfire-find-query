@@ -256,7 +256,7 @@ export default Ember.Mixin.create({
   // param: model - stirng - name of the model to be searched
   // param: params - map - maps attributes of model with to an ordered pair [operator, value]
   //        - example: {'score': ['>', 5], 'name': ['!=', 'Tom']} would return instances of the
-  //          model where the 'score' variable is greater than 5 and the name variable is not
+  //          model where the 'score' variable is greater than 5 AND the name variable is not
   //          equal to Tom
   //        - supports '==', '!=', '>'. '<'. '>=', '<=', 'contains'
   // param: cb - function - callback function to be executed after find
@@ -306,6 +306,76 @@ export default Ember.Mixin.create({
             if (oKey && paramsKey) {
               if (oKey.toLowerCase().indexOf(paramsKey.toLowerCase()) === -1) {
                 include = false;
+              }
+            }
+          } else {
+            throw new Error("Invalid operator for filterCustom: '" + params[key][0] + "'");
+          }
+        }
+        if (include) {
+          found.push(o);
+        }
+        if (countHere === size) {
+          cb(found);
+        }
+      });
+    });
+  },
+
+  // param: store - DS.store
+  // param: model - stirng - name of the model to be searched
+  // param: params - map - maps attributes of model with to an ordered pair [operator, value]
+  //        - example: {'score': ['>', 5], 'name': ['!=', 'Tom']} would return instances of the
+  //          model where the 'score' variable is greater than 5 OR the name variable is not
+  //          equal to Tom
+  //        - supports '==', '!=', '>'. '<'. '>=', '<=', 'contains'
+  // param: cb - function - callback function to be executed after find
+  //   - callback param: foud - array - contains only instances of the modlew hcih pass
+  //     the requirements given in 'params'
+
+  filterCustomOr: function(store, model, params, cb) {
+    var found = [];
+    store.findAll(model).then(function(objects) {
+      var count = 0;
+      var size = 0;
+      objects.forEach(function(o) {
+        size++;
+      });
+      objects.forEach(function(o) {
+        count++;
+        var countHere = count;
+        var include = false;
+        for (var key in params) {
+          if (params[key][0] === '==') {
+            if (o.get(key) === params[key][1]) {
+              include = true;
+            }
+          } else if (params[key][0] === '!=') {
+            if (o.get(key) !== params[key][1]) {
+              include = true;
+            }
+          } else if (params[key][0] === '>') {
+            if (o.get(key) > params[key][1]) {
+              include = true;
+            }
+          } else if (params[key][0] === '<') {
+            if (o.get(key) < params[key][1]) {
+              include = true;
+            }
+          } else if (params[key][0] === '>=') {
+            if (o.get(key) >= params[key][1]) {
+              include = true;
+            }
+          } else if (params[key][0] === '<=') {
+            if (o.get(key) <= params[key][1]) {
+              include = true;
+            }
+          } else if (params[key][0] === 'contains') {
+            var oKey = o.get(key);
+            var paramsKey = params[key][1];
+            if (oKey && paramsKey) {
+              if (oKey.toLowerCase().indexOf(paramsKey.toLowerCase()) !== -1) {
+                include = true;
               }
             }
           } else {

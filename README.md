@@ -65,11 +65,12 @@ this.filterContains(this.store, 'article', {'body': 'unicorn'}, function(posts) 
   // Do something with posts
 });
 ````
-### Custom Filter 
+### Custom Filters 
 
 Additionally, if you want to apply multiple filters to the same search, you would use the `filterCustom` function:
 
 * `filterCustom(store, model, params, callback)`
+* `filterCustomOr(store, model, params, callback)`
 
 #### Parameters
 
@@ -95,13 +96,26 @@ this.filterCustom(this.store, 'post', {
 });
 ```
 
+Say you run into a case where you want to search for blog posts containing the word "Trump" (case insensitive) OR 500+ views OR blog posts created by a user named user225.  Your find query might look something like this:
+
+```
+this.filterCustomOr(this.store, 'post', {
+  'views': ['>=', 500],
+  'author': ['==', 'user225'],
+  'body': ['contains', 'trump']
+}, function(posts) {
+  // Do something with posts
+});
+```
+Note the difference between `filterCustom` and `filterCustomOr`: `filterCustom` will include the isntance of the blog post if ALL of the query parameters are satisfied. `filterCustomOr` will include the instance of the blog post if ANY of the query parameters are satisfied.
+
 =======
  
 # How to contribute to this addon:
 
 ## Installation
 
-* `git clone` this repository
+* `git clone https://github.com/TomHeatwole/ember-emberfire-find-query/` (or the URL for whatever fork you are viewing).
 * `npm install`
 * `bower install`
 
