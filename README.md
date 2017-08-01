@@ -23,7 +23,7 @@ After the addon is installed and the mixin is included in your controller or com
 
 ### Specific Filters
 
-The find-query mixin has six "specific" filter functions:
+The find-query mixin has seven "specific" filter functions:
 
 * `filterEqual(store, model, params, callback)`
 * `filterNotEqual(store, model, params, callback)`
@@ -67,7 +67,7 @@ this.filterContains(this.store, 'article', {'body': 'unicorn'}, function(posts) 
 ````
 ### Custom Filters 
 
-Additionally, if you want to apply multiple filters to the same search, you would use the `filterCustom` function:
+Additionally, if you want to apply multiple filters to the same search, you would use the custom filter function:
 
 * `filterCustom(store, model, params, callback)`
 * `filterCustomOr(store, model, params, callback)`
