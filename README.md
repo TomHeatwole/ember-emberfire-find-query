@@ -1,6 +1,6 @@
 # ember-emberfire-find-query
 
-This is an npm-published addon for making database seraches with filters when using a Firebase database. `EmberFire`, the services linking Ember.JS to Google Firebase, was deprecated before a good method for filtered searches was written. This addon is intended to be used in Ember.JS applications that are implemented with `EmberFire`.
+This is an npm-published addon for making database searches with filters when using a Firebase database. `EmberFire`, the services linking Ember.JS to Google Firebase, was deprecated before a good method for filtered searches was written. This addon is intended to be used in Ember.JS applications that are implemented with `EmberFire`.
 
 ## Including the addon
 
@@ -33,7 +33,7 @@ The find-query mixin has seven "specific" filter functions:
 * `filterLessThanOrEqualTo(store, model, params, callback)`
 * `filterContains(store, model, params, callback)`
 
-#### Paramerets
+#### Parameters
 
 * `store`: This is the DS.store for your Ember app. Pass `this.store` in a controller or `this.get('targetObject.store')` in a component
 * `model`: The name of the model which you wish to find (string)
@@ -107,7 +107,7 @@ this.filterCustomOr(this.store, 'post', {
   // Do something with posts
 });
 ```
-Note the difference between `filterCustom` and `filterCustomOr`: `filterCustom` will include the isntance of the blog post if ALL of the query parameters are satisfied. `filterCustomOr` will include the instance of the blog post if ANY of the query parameters are satisfied.
+Note the difference between `filterCustom` and `filterCustomOr`: `filterCustom` will include the instance of the blog post if ALL of the query parameters are satisfied. `filterCustomOr` will include the instance of the blog post if ANY of the query parameters are satisfied.
 
 =======
  
